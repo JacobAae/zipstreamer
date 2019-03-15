@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: dk.grydeske.micronaut
+---
+testFramework: spock
+sourceLanguage: groovy

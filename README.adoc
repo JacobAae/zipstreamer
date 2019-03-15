@@ -1,0 +1,9 @@
+= Zipfiles in different ways
+
+App for the talk: Zipfiles on the Fly with Micronaut
+
+== Implementation Notes
+
+Created using
+
+ mn> create-app --lang groovy --build gradle --profile service --features groovy,micrometer-prometheus,spock dk.grydeske.micronaut.zipstreamer
