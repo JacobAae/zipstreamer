@@ -7,3 +7,23 @@ App for the talk: Zipfiles on the Fly with Micronaut
 Created using
 
  mn> create-app --lang groovy --build gradle --profile service --features groovy,micrometer-prometheus,spock dk.grydeske.micronaut.zipstreamer
+
+
+
+
+== Running as jar
+
+  java -jar -XX:+PrintGCDetails -Xloggc:./gclogs.log -Xmx100m zipstreamer-0.1-all.jar
+
+=== Plain/Naive Zip production
+
+----
+./parallel_commands.sh "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-0.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-1.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-2.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-3.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-4.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-5.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-6.zip" "curl -v --limit-rate 500K localhost:8080/zip/plain -o output-7.zip"
+----
+
+=== Chunked with Backpressure
+
+----
+./parallel_commands.sh "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-0.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-1.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-2.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-3.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-4.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-5.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-6.zip" "curl -v --limit-rate 500K localhost:8080/zip/chunked -o output-7.zip"
+----
+

@@ -8,7 +8,8 @@
         </encoder>
     </appender>
 
-    <root level="info">
+    <logger name="dk.grydeske" level="TRACE"/>
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
