@@ -59,11 +59,8 @@ class ZipService {
             { ZipProducerState state, emitter ->
                 log.debug("Emit next chunk")
                 state.produceNext()
-                if( state.hasNext() ) {
-                    emitter.onNext( state.getNext() )
-                } else {
-                    emitter.onComplete()
-                }
+                state.hasNext() ? emitter.onNext( state.getNext() ) :
+                        emitter.onComplete()
                 state
             } as io.reactivex.functions.BiConsumer
         )

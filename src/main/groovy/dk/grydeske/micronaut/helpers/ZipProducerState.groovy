@@ -44,17 +44,13 @@ class ZipProducerState {
 
     // This can produce small chunks if images are very small
     private void produceNextChunk() {
-        if( done ) {
-            return
-        }
-        byte[] tempBuffer
-        tempBuffer = new byte[bufferCapacity]
+        if( done ) { return }
+        byte[] tempBuffer = new byte[bufferCapacity]
 
         int read = currentFileStream.read(tempBuffer)
         if( read > 0) {
             if( read < bufferCapacity) {
-                byte[] temp = Arrays.copyOf(tempBuffer, read)
-                zipStream.write(temp)
+                zipStream.write(Arrays.copyOf(tempBuffer, read))
             } else {
                 zipStream.write(tempBuffer)
             }
@@ -66,13 +62,14 @@ class ZipProducerState {
     private gotoNextFile() {
         log.trace("gotoNextFile")
         if( currentFileIndex < files.size() ) {
-            URL resource = this.class.classLoader.getResource(files[currentFileIndex])
+            String filename = files[currentFileIndex]
+            URL resource = this.class.classLoader.getResource(filename)
             currentFileStream = resource.openStream()
 
-            ZipEntry zipEntry = new ZipEntry(files[currentFileIndex])
+            ZipEntry zipEntry = new ZipEntry(filename)
             zipEntry.setMethod(ZipEntry.STORED)
-            zipEntry.crc = fileInfoRepository.getCrc(files[currentFileIndex])
-            zipEntry.size = fileInfoRepository.getSize(files[currentFileIndex])
+            zipEntry.crc = fileInfoRepository.getCrc(filename)
+            zipEntry.size = fileInfoRepository.getSize(filename)
 
             zipStream.putNextEntry(zipEntry)
 

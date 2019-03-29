@@ -1,7 +1,7 @@
 
 String method = "chunked" // "plain"  "chunked"
 String rate = "500K"
-Integer parallelCommands = 8
+Integer parallelCommands = 30
 
 String command = "./parallel_commands.sh "
 
